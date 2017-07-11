@@ -36,7 +36,7 @@ function encrypt_decrypt_tool_html(){
 
         if(!$error){
             $ciphers = openssl_get_cipher_methods();
-
+            echo "<p>Find below your <b>".(isset($_POST['encrypt'])?"encrypted":"decrypted")."</b> text.";
             echo "<pre>";
             if (isset($_POST['encrypt'])) {
                 echo openssl_encrypt($main_text,$ciphers[$method],$key);
@@ -45,6 +45,7 @@ function encrypt_decrypt_tool_html(){
                 echo openssl_decrypt($main_text,$ciphers[$method],$key);
             }
             echo "</pre>";
+            echo "<p style='text-align:center;'><a href='".get_permalink()."'>Encrypt/Decrypt your text again.</a></p>";
         }
     }
     if ($_SERVER['REQUEST_METHOD'] !== 'POST' || $error) {
@@ -59,8 +60,7 @@ function encrypt_decrypt_tool_html(){
                     <?php
                     $ciphers = openssl_get_cipher_methods();
                     foreach ($ciphers as $i => $cipher) { ?>
-                        <option value="<?php echo $i; ?>"><b
-                                style="font-weight:bold;">OpenSSL</b> <?php echo $cipher; ?></option>
+                        <option value="<?php echo $i; ?>" <?php echo $_REQUEST["method"]== $i?"selected":""; ?>>OpenSSL <?php echo $cipher; ?></option>
                     <?php } ?>
                 </select></label>
             <label>Insert your key:<br>
@@ -83,7 +83,7 @@ function encrypt_decrypt_tool_html(){
     <script type="text/javascript">
         function check(input) {
             if (input.value != document.getElementById('key').value) {
-                input.setCustomValidity('Confirm must be matching to the key.');
+                input.setCustomValidity('Confirm key must be matching to the key.');
             } else {
                 // input is valid -- reset the error message
                 input.setCustomValidity('');
