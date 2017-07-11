@@ -28,6 +28,22 @@ function encrypt_decrypt_tool_html(){
     <input type="submit" name="encrypt" value="Encrypt">
     <input type="submit" name="decrypt" value="Decrypt">
 </form>
+    <style type="text/css">
+        label{
+            display:block;
+        }
+        p.post-date{
+            display:none;
+        }
+        select, input[type=password], textarea{
+            width: 100%;
+            border: 1px solid #000;
+            padding: 0 10px;
+        }
+        textarea{
+            height: 300px;
+        }
+    </style>
 <?php
 }
 add_shortcode("encrypt_decrypt_tool", "encrypt_decrypt_tool_html");
